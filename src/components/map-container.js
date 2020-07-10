@@ -35,7 +35,7 @@ import EditorFactory from './editor/editor';
 
 // utils
 import {generateMapboxLayers, updateMapboxLayers} from 'layers/mapbox-utils';
-import {OVERLAY_TYPE} from 'layers/base-layer';
+import {OVERLAY_TYPE} from 'layers';
 import {setLayerBlending} from 'utils/gl-utils';
 import {transformRequest} from 'utils/map-style-utils/mapbox-utils';
 import {getLayerHoverProp} from 'utils/layer-utils';

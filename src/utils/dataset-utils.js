@@ -21,7 +21,7 @@
 import {hexToRgb} from './color-utils';
 import uniq from 'lodash.uniq';
 import {validateInputData} from 'processors/data-processor';
-import {KeplerTable} from 'utils/table-utils/kepler-table';
+import KeplerTable from './table-utils/kepler-table';
 
 // apply a color for each dataset
 // to use as label colors
@@ -84,7 +84,7 @@ export function createNewDataEntry({info, data, metadata}, datasets = {}) {
   info = info || {};
   const color = info.color || getNewDatasetColor(datasets);
 
-  const keplerTable = new KeplerTable({info, data: validatedData, color});
+  const keplerTable = new KeplerTable({info, data: validatedData, color, metadata});
   return {
     [keplerTable.id]: keplerTable
   };

@@ -59,6 +59,8 @@ import {
 } from 'utils/data-scale-utils';
 import {hexToRgb, getColorGroupByName, reverseColorRange} from 'utils/color-utils';
 
+/** @typedef {import('./index').Layer} LayerClass} */
+
 /**
  * Approx. number of points to sample in a large data set
  * @type {number}
@@ -86,7 +88,8 @@ function* generateColor() {
 export const colorMaker = generateColor();
 const defaultGetFieldValue = (field, d) => d[field.tableFieldIndex - 1];
 
-export default class Layer {
+/** @type {LayerClass} */
+class Layer {
   constructor(props = {}) {
     this.id = props.id || generateHashId(6);
 
@@ -819,8 +822,8 @@ export default class Layer {
    * @returns {object} layer
    */
   updateLayerDomain(datasets, newFilter) {
-    const dataset = this.getDataset(datasets);
-    if (!dataset) {
+    const table = this.getDataset(datasets);
+    if (!table) {
       return this;
     }
     Object.values(this.visualChannels).forEach(channel => {
@@ -830,7 +833,7 @@ export default class Layer {
       // no need to update ordinal domain
       if (!newFilter || scaleType !== SCALE_TYPES.ordinal) {
         const {domain} = channel;
-        const updatedDomain = this.calculateLayerDomain(dataset, channel);
+        const updatedDomain = this.calculateLayerDomain(table, channel);
 
         this.updateLayerConfig({[domain]: updatedDomain});
       }
@@ -904,16 +907,16 @@ export default class Layer {
       : [this.getDefaultLayerConfig()[scale]];
   }
 
-  updateLayerVisualChannel(dataset, channel) {
+  updateLayerVisualChannel(table, channel) {
     const visualChannel = this.visualChannels[channel];
     this.validateVisualChannel(channel);
     // calculate layer channel domain
-    const updatedDomain = this.calculateLayerDomain(dataset, visualChannel);
+    const updatedDomain = this.calculateLayerDomain(table, visualChannel);
     this.updateLayerConfig({[visualChannel.domain]: updatedDomain});
   }
 
-  calculateLayerDomain(dataset, visualChannel) {
-    const {allData, filteredIndexForDomain} = dataset;
+  calculateLayerDomain(table, visualChannel) {
+    const {allData, filteredIndexForDomain} = table;
     const defaultDomain = [0, 1];
     const {scale} = visualChannel;
     const scaleType = this.config[scale];
@@ -929,12 +932,8 @@ export default class Layer {
       return defaultDomain;
     }
 
-    // TODO: refactor to add valueAccessor to field
-    const fieldIdx = field.tableFieldIndex - 1;
-    const isTime = field.type === ALL_FIELD_TYPES.timestamp;
-    const valueAccessor = maybeToDate.bind(null, isTime, fieldIdx, field.format);
+    const {valueAccessor} = field;
     const indexValueAccessor = i => valueAccessor(allData[i]);
-
     const sortFunction = getSortingFunction(field.type);
 
     switch (scaleType) {
@@ -1067,3 +1066,5 @@ export default class Layer {
     }, []);
   }
 }
+
+export default Layer;
