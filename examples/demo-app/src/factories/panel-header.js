@@ -27,22 +27,6 @@ export function CustomPanelHeaderFactory(...deps) {
   PanelHeader.defaultProps = {
     ...PanelHeader.defaultProps,
     actionItems: [
-      {
-        id: 'bug',
-        iconComponent: Icons.Bug,
-        href: BUG_REPORT_LINK,
-        blank: true,
-        tooltip: 'Bug Report',
-        onClick: () => {}
-      },
-      {
-        id: 'docs',
-        iconComponent: Icons.Docs,
-        href: USER_GUIDE_DOC,
-        blank: true,
-        tooltip: 'User Guide',
-        onClick: () => {}
-      },
       defaultActionItems.find(item => item.id === 'storage'),
       {
         ...defaultActionItems.find(item => item.id === 'save'),

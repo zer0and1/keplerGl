@@ -44,7 +44,7 @@ import {loadCloudMap} from 'kepler.gl/actions';
 import {CLOUD_PROVIDERS} from './cloud-providers';
 
 const KeplerGl = require('kepler.gl/components').injectComponents([
-  replaceLoadDataModal(),
+  // replaceLoadDataModal(),
   replaceMapControl(),
   replacePanelHeader()
 ]);
