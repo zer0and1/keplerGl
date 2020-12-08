@@ -30,12 +30,15 @@ export const MAP_URI = 'demo/map?mapUrl=';
  */
 export const MAP_CONFIG_URL = `${DATA_URL}samples.json?nocache=${new Date().getTime()}`;
 
+export const KEPLER_GL_NAME = 'drive.test.magic';
+
 /**
  * I know this is already defined in Kepler core but it should be defined here
  * because it belongs to the demo app
  * @type {string}
  */
 export const KEPLER_GL_WEBSITE = 'http://kepler.gl/';
+
 
 export const QUERY_TYPES = keyMirror({
   file: null,

@@ -88,7 +88,8 @@ const demoReducer = combineReducers({
           ...DEFAULT_EXPORT_MAP[[EXPORT_MAP_FORMATS.HTML]],
           exportMapboxAccessToken: AUTH_TOKENS.EXPORT_MAPBOX_TOKEN
         }
-      }
+      },
+      currentModal: null
     },
     visState: {
       loaders: [], // Add additional loaders.gl loaders here

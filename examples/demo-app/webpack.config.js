@@ -67,7 +67,19 @@ const CONFIG = {
       'MapboxExportToken',
       'CartoClientId'
     ])
-  ]
+  ],
+
+  // optimization: { 
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         name: 'vendor',
+  //         chunks: 'initial'
+  //       }
+  //     }
+  //   } 
+  // }
 };
 
 // This line enables bundling against src in this repo rather than installed deck.gl module
